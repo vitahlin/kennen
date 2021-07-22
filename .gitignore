@@ -5,3 +5,9 @@
 
 # rust
 target/
+
+# clion 
+.idea/
+
+# cmake 
+cmake-build-debug/
