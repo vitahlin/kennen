@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-double getcurrentSecond() {}
-
 int main() {
     struct timeval tv;
     gettimeofday(&tv, NULL);
