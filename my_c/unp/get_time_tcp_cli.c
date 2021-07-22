@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
     // 可用的时间服务器IP地址
     char time_serv_ip[12] = "132.163.96.5";
 
+    // 创建一个套接字
     if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("socket error");
         exit(-1);
@@ -32,7 +33,7 @@ int main(int argc, char **argv) {
     serv_address.sin_port = htons(13);
 
     if (inet_pton(AF_INET, time_serv_ip, &serv_address.sin_addr) < 0) {
-        printf("inet_pton error for %s", argv[1]);
+        printf("inet_pton error for %s", time_serv_ip);
         exit(-1);
     }
 
