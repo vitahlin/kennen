@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     // 修正clion printf不打印的问题
     setbuf(stdout, 0);
 
-    // 创建一个套接字
+    //
     if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("socket error");
         exit(-1);
@@ -61,6 +61,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
+    // 将套接字转换成一个监听套接字，这样来自客户端的外来连接就可以在该套接字上由内核接受
     if (listen(listen_fd, LISTENQ) < 0) {
         printf("listen error");
         exit(-1);
