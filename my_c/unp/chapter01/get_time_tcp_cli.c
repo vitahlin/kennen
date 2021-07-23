@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 
     // 创建一个套接字
     if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        printf("socket error");
+        perror("socket error");
         exit(-1);
     }
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     }
 
     if (connect(sock_fd, (const struct sockaddr *) &serv_address, sizeof(serv_address)) < 0) {
-        printf("connect error");
+        perror("connect error");
         exit(-1);
     }
 
