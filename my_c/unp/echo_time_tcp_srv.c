@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    printf("time server running...");
+    printf("time server running...\n");
     for (;;) {
         if ((conn_fd = accept(listen_fd, NULL, NULL)) < 0) {
             printf("accept error");
