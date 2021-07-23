@@ -16,8 +16,14 @@ int main(int argc, char **argv) {
     struct sockaddr_in serv_address;
     char receive_line[MAX_LINE + 1];
 
-    // 可用的时间服务器IP地址
-    char time_serv_ip[12] = "132.163.96.5";
+    char serv_ip[16];
+    int port;
+
+    // 网络上可用的时间服务器IP地址132.163.96.5，端口13
+    printf("Input IP address: ");
+    scanf("%s", &serv_ip);
+    printf("Input port: ");
+    scanf("%d", &port);
 
     // 创建一个套接字
     if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -30,10 +36,10 @@ int main(int argc, char **argv) {
     serv_address.sin_family = AF_INET;
 
     // 指定端口，时间服务器端口13
-    serv_address.sin_port = htons(13);
+    serv_address.sin_port = htons(port);
 
-    if (inet_pton(AF_INET, time_serv_ip, &serv_address.sin_addr) < 0) {
-        printf("inet_pton error for %s", time_serv_ip);
+    if (inet_pton(AF_INET, serv_ip, &serv_address.sin_addr) < 0) {
+        printf("inet_pton error for %s", serv_ip);
         exit(-1);
     }
 
