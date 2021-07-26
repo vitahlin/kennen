@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <sys/errno.h>
+#include <arpa/inet.h>
 
 #define MAX_LINE 1024
 #define LISTENQ 1024
@@ -37,7 +38,8 @@ int writen(int fd, const void *vptr, int n) {
 
 int main(int argc, char **argv) {
     int listen_fd, conn_fd;
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr, cli_adddr;
+    socklen_t len;
     char buff[MAX_LINE];
     time_t ticks;
 
@@ -68,12 +70,15 @@ int main(int argc, char **argv) {
 
     printf("time server running...\n");
     for (;;) {
-        if ((conn_fd = accept(listen_fd, NULL, NULL)) < 0) {
+        if ((conn_fd = accept(listen_fd, (struct sockaddr *) &cli_adddr, &len)) < 0) {
             perror("accept error");
             exit(-1);
         }
 
-        printf("New client connect id=%d\n", conn_fd);
+        printf("New client connect IP=%s, port=%d, conn_id=%d\n",
+               inet_ntop(AF_INET, &cli_adddr.sin_addr, buff, sizeof(buff)),
+               ntohs(cli_adddr.sin_port),
+               conn_fd);
         ticks = time(NULL);
 
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
