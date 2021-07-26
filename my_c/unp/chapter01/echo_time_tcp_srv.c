@@ -44,9 +44,8 @@ int main(int argc, char **argv) {
     // 修正clion printf不打印的问题
     setbuf(stdout, 0);
 
-    //
     if ((listen_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        printf("socket error");
+        perror("socket error");
         exit(-1);
     }
 
@@ -57,20 +56,20 @@ int main(int argc, char **argv) {
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     if (bind(listen_fd, (const struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        printf("bind error");
+        perror("bind error");
         exit(-1);
     }
 
     // 将套接字转换成一个监听套接字，这样来自客户端的外来连接就可以在该套接字上由内核接受
     if (listen(listen_fd, LISTENQ) < 0) {
-        printf("listen error");
+        perror("listen error");
         exit(-1);
     }
 
     printf("time server running...\n");
     for (;;) {
         if ((conn_fd = accept(listen_fd, NULL, NULL)) < 0) {
-            printf("accept error");
+            perror("accept error");
             exit(-1);
         }
 
@@ -81,7 +80,7 @@ int main(int argc, char **argv) {
         writen(conn_fd, buff, sizeof(buff));
 
         if (close(conn_fd) < 0) {
-            printf("close error");
+            perror("close error");
             exit(-1);
         }
     }
