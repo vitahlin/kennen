@@ -82,9 +82,12 @@ int main(int argc, char **argv) {
             perror("fork error");
             exit(-1);
         } else if (pid == 0) {
-            /**
-             * 子进程处理客户端连接逻辑
-             */
+            // 子进程处理客户端连接逻辑
+            if (close(listen_fd) < 0) {
+                perror("close error");
+                exit(-1);
+            }
+
             printf("New client connect IP=%s, port=%d, conn_id=%d\n",
                    inet_ntop(AF_INET, &cli_adddr.sin_addr, buff, sizeof(buff)),
                    ntohs(cli_adddr.sin_port),
