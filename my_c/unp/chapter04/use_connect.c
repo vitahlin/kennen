@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
     setbuf(stdout, 0);
 
     printf("Input IP address: ");
-    scanf("%s", &serv_ip);
+    scanf("%s", (char *) &serv_ip);
     printf("Input port: ");
     scanf("%d", &port);
 

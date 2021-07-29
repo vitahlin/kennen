@@ -44,7 +44,7 @@ void strEcho(int sock_fd) {
     again:
     bzero(buf, 10);
     while ((n = read(sock_fd, buf, 10)) > 0) {
-        printf("receive from cli char count==%d, content=%s.\n", n, buf);
+        printf("receive from cli char count==%zd, content=%s.\n", n, buf);
         writen(sock_fd, buf, n);
     }
     if (n < 0 && errno == EINTR) {
