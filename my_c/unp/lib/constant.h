@@ -1,0 +1,2 @@
+#define MAX_LINE 4096
+#define LISTENQ 1024

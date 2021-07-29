@@ -11,9 +11,7 @@
 #include <time.h>
 #include <sys/errno.h>
 #include <arpa/inet.h>
-
-#define MAX_LINE 1024
-#define LISTENQ 1024
+#include "../lib/constant.h"
 
 int writen(int fd, const void *vptr, int n) {
     int nleft;
@@ -56,7 +54,7 @@ int main(int argc, char **argv) {
     bzero(&serv_addr, sizeof(serv_addr));
 
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(9876);
+    serv_addr.sin_port = htons(9901);
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     if (bind(listen_fd, (const struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
