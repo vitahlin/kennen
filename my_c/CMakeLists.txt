@@ -9,6 +9,7 @@ add_executable(get_time_tcp_cli unp/chapter01/get_time_tcp_cli.c)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter04)
 add_executable(echo_time_fork_tcp_srv unp/chapter04/echo_time_fork_tcp_srv.c)
 add_executable(use_connect unp/chapter04/use_connect.c)
+add_executable(use_inet_pton unp/chapter04/use_inet_pton.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter05)
 add_executable(tcp_srv_01 unp/chapter05/tcp_srv_01.c)
