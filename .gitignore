@@ -6,8 +6,14 @@
 # rust
 target/
 
-# clion 
+# clion
 .idea/
 
-# cmake 
+# cmake
 cmake-build-debug/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Testing/
+
+*.cbp
