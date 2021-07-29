@@ -30,3 +30,16 @@ void wrapClose(int sock_fd) {
     perror("close error ");
     exit(-1);
 }
+
+/**
+ * 封装bind函数
+ * @param sock_fd
+ * @param address
+ * @param sock_len
+ */
+void wrapBind(int sock_fd, const struct sockaddr *address, socklen_t sock_len) {
+    if (bind(sock_fd, address, sock_len) < 0) {
+        perror("bind error ");
+        exit(-1);
+    }
+}
