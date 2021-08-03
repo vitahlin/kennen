@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(my_c C)
+project(c C)
 set(CMAKE_C_STANDARD 11)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unp/lib unp.out)
