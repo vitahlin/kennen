@@ -17,3 +17,4 @@ cmake_install.cmake
 Testing/
 
 *.cbp
+*.out/
