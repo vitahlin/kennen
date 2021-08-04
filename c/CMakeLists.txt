@@ -13,7 +13,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./other)
 add_executable(get_timestamp other/get_timestamp.c)
 add_executable(use_fork other/use_fork.c)
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unp/lib unp.out)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unp/lib ${CMAKE_CURRENT_SOURCE_DIR}/unp/lib/lib.out)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter01)
 add_executable(echo_time_tcp_srv unp/chapter01/echo_time_tcp_srv.c)
