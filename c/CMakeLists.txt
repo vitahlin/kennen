@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.19)
 project(c C)
 set(CMAKE_C_STANDARD 11)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./other)
+add_executable(get_timestamp other/get_timestamp.c)
+add_executable(use_fork other/use_fork.c)
+
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unp/lib unp.out)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter01)
