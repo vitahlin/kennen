@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#define MAX_LINE 1024
+#define MAX_SIZE 1024
 
 int writen(int fd, const void *vptr, int n) {
     int nleft;
@@ -37,7 +37,7 @@ int writen(int fd, const void *vptr, int n) {
 static int my_read(int fd, char *ptr) {
     static int read_cnt = 0;
     static char *read_ptr;
-    static char read_buf[MAX_LINE];
+    static char read_buf[MAX_SIZE];
 
     if (read_cnt <= 0) {
         again:
@@ -94,11 +94,11 @@ int Readline(int fd, void *ptr, int maxlen) {
 
 void strCli(FILE *fp, int sock_fd) {
     printf("begin input...");
-    char sendline[MAX_LINE], recvline[MAX_LINE];
+    char sendline[MAX_SIZE], recvline[MAX_SIZE];
 
-    while (fgets(sendline, MAX_LINE, fp) != NULL) {
+    while (fgets(sendline, MAX_SIZE, fp) != NULL) {
         writen(sock_fd, sendline, strlen(sendline));
-        if (Readline(sock_fd, recvline, MAX_LINE) == 0) {
+        if (Readline(sock_fd, recvline, MAX_SIZE) == 0) {
             printf("strCli: server terminated permaturely");
             exit(-1);
         }
@@ -109,7 +109,7 @@ void strCli(FILE *fp, int sock_fd) {
 int main(int argc, char **argv) {
     int sock_fd, n;
     struct sockaddr_in serv_addr;
-    char receive_line[MAX_LINE + 1];
+    char receive_line[MAX_SIZE + 1];
 
     char serv_ip[16];
     int port;

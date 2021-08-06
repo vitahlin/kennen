@@ -10,9 +10,7 @@
 #include <time.h>
 #include <sys/errno.h>
 #include <arpa/inet.h>
-
-#define MAX_LINE 1024
-#define LISTENQ 1024
+#include "../lib/constant.h"
 
 int writen(int fd, const void *vptr, int n) {
     int nleft;
@@ -40,7 +38,7 @@ int main(int argc, char **argv) {
     int listen_fd, conn_fd;
     struct sockaddr_in serv_addr, cli_adddr;
     socklen_t len;
-    char buff[MAX_LINE];
+    char buff[MAX_SIZE];
     time_t ticks;
 
     // 修正clion printf不打印的问题

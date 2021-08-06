@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     int listen_fd, conn_fd;
     struct sockaddr_in serv_addr, cli_adddr;
     socklen_t len;
-    char buff[MAX_LINE];
+    char buff[MAX_SIZE];
     time_t ticks;
     pid_t pid;
 

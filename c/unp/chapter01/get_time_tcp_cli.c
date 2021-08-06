@@ -8,13 +8,12 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-
-#define MAX_LINE 1024
+#include "../lib/constant.h"
 
 int main(int argc, char **argv) {
     int sock_fd, n;
     struct sockaddr_in serv_address;
-    char receive_line[MAX_LINE + 1];
+    char receive_line[MAX_SIZE + 1];
 
     char serv_ip[16];
     int port;
@@ -48,7 +47,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    while ((n = read(sock_fd, receive_line, MAX_LINE)) > 0) {
+    while ((n = read(sock_fd, receive_line, MAX_SIZE)) > 0) {
         receive_line[n] = 0;
         if (fputs(receive_line, stdout) == EOF) {
             printf("fputs error");
