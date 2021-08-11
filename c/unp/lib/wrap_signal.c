@@ -1,0 +1,18 @@
+
+#include "./unp.h"
+
+/**
+ * 封装的signal函数
+ * @param sig_no 信号
+ * @param func 处理函数
+ * @return
+ */
+SignalFunc* wrapSignal(int sig_no, SignalFunc* func) {
+    SignalFunc* sig_func;
+    if ((sig_func = signal(sig_no, func)) == SIG_ERR) {
+        perror("signal error ");
+        exit(-1);
+    }
+
+    return (sig_func);
+}
