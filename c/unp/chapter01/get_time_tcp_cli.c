@@ -2,16 +2,12 @@
  * 简单从时间服务器获取时间的tcp客户端程序
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <unistd.h>
 #include "../lib/constant.h"
+#include "../lib/unp.h"
 
 int main(int argc, char **argv) {
-    int sock_fd, n;
+    int sock_fd;
+    ssize_t n;
     struct sockaddr_in serv_address;
     char receive_line[MAX_SIZE + 1];
 
@@ -25,27 +21,18 @@ int main(int argc, char **argv) {
     scanf("%d", &port);
 
     // 创建一个套接字
-    if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        perror("socket error");
-        exit(-1);
-    }
+    sock_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
 
     bzero(&serv_address, sizeof(serv_address));
 
     serv_address.sin_family = AF_INET;
-
     // 指定端口，时间服务器端口13
     serv_address.sin_port = htons(port);
 
-    if (inet_pton(AF_INET, serv_ip, &serv_address.sin_addr) < 0) {
-        printf("inet_pton error for %s", serv_ip);
-        exit(-1);
-    }
+    // 进行IP地址转换
+    wrapInetPton(AF_INET, serv_ip, &serv_address.sin_addr);
 
-    if (connect(sock_fd, (const struct sockaddr *) &serv_address, sizeof(serv_address)) < 0) {
-        perror("connect error");
-        exit(-1);
-    }
+    wrapConnect(sock_fd, (const struct sockaddr *) &serv_address, sizeof(serv_address));
 
     while ((n = read(sock_fd, receive_line, MAX_SIZE)) > 0) {
         receive_line[n] = 0;

@@ -1,8 +1,15 @@
 #include <sys/socket.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/errno.h>
+#include <netinet/in.h>
+#include <strings.h>
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <unistd.h>
+
 
 typedef void SignalFunc(int);
 
@@ -13,9 +20,24 @@ void wrapClose(int sock_fd);
 
 void wrapBind(int sock_fd, const struct sockaddr *address, socklen_t socklen);
 
+void wrapListen(int sock_fd, int listen_num);
+
+int wrapAccept(int listen_fd, struct sockaddr *address, socklen_t *sock_len);
+
+void wrapInetPton(int domain, const char *ip, void *dst);
+
+void wrapConnect(int sock_fd, const struct sockaddr *serv_addr, socklen_t addr_length);
+
 // 信号相关函数
 SignalFunc *wrapSignal(int sig_no, SignalFunc *func);
 
+/**
+ * 读取多个字节
+ * @param fd
+ * @param buff
+ * @param n
+ * @return
+ */
 ssize_t wrapReadn(int fd, void *buff, size_t n);
 
 ssize_t wrapWriten(int fd, const void *vptr, size_t n);

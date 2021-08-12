@@ -18,6 +18,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unp/lib ${CMAKE_CURRENT_SOURCE_DIR}
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter01)
 add_executable(echo_time_tcp_srv unp/chapter01/echo_time_tcp_srv.c)
 add_executable(get_time_tcp_cli unp/chapter01/get_time_tcp_cli.c)
+target_link_libraries(get_time_tcp_cli unpLib)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter04)
 add_executable(echo_time_fork_tcp_srv unp/chapter04/echo_time_fork_tcp_srv.c)
