@@ -67,7 +67,7 @@ void wrapListen(int sock_fd, int listen_num) {
 }
 
 void wrapInetPton(int domain, const char *ip, void *dst) {
-    if (inet_pton(AF_INET, ip, dst) < 0) {
+    if (inet_pton(domain, ip, dst) < 0) {
         printf("inet_pton error for %s", ip);
         exit(-1);
     }

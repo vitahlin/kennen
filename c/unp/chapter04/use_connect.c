@@ -5,12 +5,8 @@
  * 2. 服务器端口没有对应的进程响应，输入真实的IP、错误的端口
  * 3. 服务不可达，指定一个因特网中不可到底的IP地址
  */
-#include <stdio.h>
-#include <netinet/in.h>
-#include <stdlib.h>
-#include <string.h>
-#include <arpa/inet.h>
 #include <time.h>
+#include "../lib/unp.h"
 
 int main(int argc, char **argv) {
     int sock_fd;
@@ -28,10 +24,8 @@ int main(int argc, char **argv) {
     scanf("%d", &port);
 
     // 创建一个套接字
-    if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        perror("socket error");
-        exit(-1);
-    }
+    sock_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
+
     bzero(&serv_addr, sizeof(serv_addr));
 
     serv_addr.sin_family = AF_INET;
