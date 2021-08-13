@@ -23,9 +23,15 @@ target_link_libraries(get_time_tcp_cli unpLib)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter04)
 add_executable(echo_time_fork_tcp_srv unp/chapter04/echo_time_fork_tcp_srv.c)
+target_link_libraries(echo_time_fork_tcp_srv unpLib)
+
 add_executable(use_connect unp/chapter04/use_connect.c)
+target_link_libraries(use_connect unpLib)
 add_executable(use_inet_pton unp/chapter04/use_inet_pton.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter05)
 add_executable(tcp_srv_01 unp/chapter05/tcp_srv_01.c)
+target_link_libraries(tcp_srv_01 unpLib)
+
 add_executable(tcp_cli_01 unp/chapter05/tcp_cli_01.c)
+target_link_libraries(tcp_cli_01 unpLib)
