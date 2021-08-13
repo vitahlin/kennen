@@ -25,10 +25,10 @@ void wrapConnect(int sock_fd, const struct sockaddr *serv_addr, socklen_t addr_l
     }
 }
 
-int wrapAccept(int sock_fd, struct sockaddr *address, socklen_t *sock_len) {
+int wrapAccept(int sock_fd, struct sockaddr *cli_address, socklen_t *cli_address_length) {
     int n;
-    if ((n = accept(sock_fd, address, sock_len)) < 0) {
-        perror("accept error");
+    if ((n = accept(sock_fd, cli_address, cli_address_length)) < 0) {
+        perror("accept error ");
         exit(-1);
     }
     return n;

@@ -5,37 +5,12 @@
 #include "../lib/constant.h"
 #include "../lib/unp.h"
 
-int writen(int fd, const void *vptr, int n) {
-    int nleft;
-    int nwritten;
-    const char *ptr;
-
-    ptr = (char *) vptr;
-    nleft = n;
-    while (nleft > 0) {
-        if ((nwritten = write(fd, ptr, nleft)) <= 0) {
-            if (errno == EINTR) {
-                nwritten = 0;
-            } else {
-                return (-1);
-            }
-        }
-
-        nleft -= nwritten;
-        ptr += nwritten;
-    }
-    return n;
-}
-
 int main(int argc, char **argv) {
     int listen_fd, conn_fd;
     struct sockaddr_in serv_addr, cli_addr;
     socklen_t len;
     char buff[MAX_SIZE];
     time_t ticks;
-
-    // 修正clion printf不打印的问题
-    setbuf(stdout, 0);
 
     listen_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
 
@@ -52,7 +27,7 @@ int main(int argc, char **argv) {
 
     printf("time server running...\n");
     for (;;) {
-        conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_addr, len);
+        conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_addr, &len);
 
         printf("New client connect IP=%s, port=%d, conn_id=%d\n",
                inet_ntop(AF_INET, &cli_addr.sin_addr, buff, sizeof(buff)),

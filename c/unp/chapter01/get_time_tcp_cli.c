@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 
     // 网络上可用的时间服务器IP地址132.163.96.5，端口13
     printf("Input IP address: ");
-    scanf("%s", &serv_ip);
+    scanf("%s", serv_ip);
     printf("Input port: ");
     scanf("%d", &port);
 

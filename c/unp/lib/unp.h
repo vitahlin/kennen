@@ -22,7 +22,7 @@ void wrapBind(int sock_fd, const struct sockaddr *address, socklen_t socklen);
 
 void wrapListen(int sock_fd, int listen_num);
 
-int wrapAccept(int listen_fd, struct sockaddr *address, socklen_t *sock_len);
+int wrapAccept(int sock_fd, struct sockaddr *cli_address, socklen_t *cli_address_length);
 
 void wrapInetPton(int domain, const char *ip, void *dst);
 
