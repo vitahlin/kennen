@@ -34,23 +34,20 @@ void strEcho(int sock_fd) {
 
 int main(int argc, char **argv) {
     int listen_fd, conn_fd;
-    struct sockaddr_in serv_addr, cli_addr;
+    struct sockaddr_in serv_address, cli_address;
     socklen_t len;
     char buff[MAX_SIZE];
     pid_t child_pid;
 
-    // 修正clion printf不打印的问题
-    setbuf(stdout, 0);
-
     listen_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
 
-    bzero(&serv_addr, sizeof(serv_addr));
+    bzero(&serv_address, sizeof(serv_address));
 
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(9876);
-    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_address.sin_family = AF_INET;
+    serv_address.sin_port = htons(9876);
+    serv_address.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    wrapBind(listen_fd, (const struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    wrapBind(listen_fd, (const struct sockaddr *) &serv_address, sizeof(serv_address));
 
     // 将套接字转换成一个监听套接字，这样来自客户端的外来连接就可以在该套接字上由内核接受
     wrapListen(listen_fd, LISTENQ);
@@ -60,8 +57,8 @@ int main(int argc, char **argv) {
 
     printf("server running...\n");
     for (;;) {
-        len = sizeof(cli_adddr);
-        conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_addr, &len);
+        len = sizeof(cli_address);
+        conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_address, &len);
 
         // 采用fork函数并发处理
         if ((child_pid = fork()) < 0) {
