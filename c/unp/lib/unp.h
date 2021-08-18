@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include "./constant.h"
 
-typedef void SignalFunc(int);
+typedef void SignalHandler(int);
 
 // socket相关函数
 int wrapSocket(int domain, int type, int protocol);
@@ -29,7 +29,7 @@ void wrapInetPton(int domain, const char *ip, void *dst);
 void wrapConnect(int sock_fd, const struct sockaddr *serv_addr, socklen_t addr_length);
 
 // 信号相关函数
-SignalFunc *wrapSignal(int sig_no, SignalFunc *func);
+SignalHandler *wrapSignal(int sig_no, SignalHandler *func);
 
 /**
  * 读取多个字节

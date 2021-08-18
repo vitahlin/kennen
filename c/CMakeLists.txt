@@ -30,8 +30,12 @@ target_link_libraries(use_connect unpLib)
 add_executable(use_inet_pton unp/chapter04/use_inet_pton.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter05)
-add_executable(tcp_srv_01 unp/chapter05/tcp_srv_01.c)
-target_link_libraries(tcp_srv_01 unpLib)
 
 add_executable(tcp_cli_01 unp/chapter05/tcp_cli_01.c)
 target_link_libraries(tcp_cli_01 unpLib)
+
+add_executable(tcp_srv_01 unp/chapter05/tcp_srv_01.c)
+target_link_libraries(tcp_srv_01 unpLib)
+
+add_executable(tcp_srv_02 unp/chapter05/tcp_srv_02.c)
+target_link_libraries(tcp_srv_02 unpLib)

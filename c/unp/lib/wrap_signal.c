@@ -7,8 +7,8 @@
  * @param func 处理函数
  * @return
  */
-SignalFunc* wrapSignal(int sig_no, SignalFunc* func) {
-    SignalFunc* sig_func;
+SignalHandler *wrapSignal(int sig_no, SignalHandler *func) {
+    SignalHandler *sig_func;
     if ((sig_func = signal(sig_no, func)) == SIG_ERR) {
         perror("signal error ");
         exit(-1);
