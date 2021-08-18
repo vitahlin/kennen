@@ -168,3 +168,20 @@ ssize_t wrapReadlineV2(int fd, void *vptr, size_t max_len) {
     return n;
 }
 
+char *wrapFgets(char *ptr, int n, FILE *stream) {
+    char *rptr;
+
+    // 从文件结构体指针stream中读取数据，每次读取一行，数据保存在ptr指针中，每次最多读取n-1个字符
+    if ((rptr = fgets(ptr, n, stream)) == NULL && ferror(stream)) {
+        printf("fgets error");
+    }
+
+    return rptr;
+}
+
+void wrapFputs(const char *ptr, FILE *stream) {
+    if (fputs(ptr, stream) == EOF) {
+        printf("fputs error");
+    }
+}
+

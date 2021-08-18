@@ -46,3 +46,6 @@ ssize_t wrapReadlineV1(int fd, void *vptr, size_t max_len);
 
 ssize_t wrapReadlineV2(int fd, void *vptr, size_t max_len);
 
+char *wrapFgets(char *ptr, int n, FILE *stream);
+
+void wrapFputs(const char *ptr, FILE *stream);
