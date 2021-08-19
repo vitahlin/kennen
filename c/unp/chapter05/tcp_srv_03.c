@@ -1,20 +1,18 @@
 /**
  * 返回时间的服务器程序
- * 采用fork函数并发处理，用wait函数处理子进程的SIGCHLD信号
+ * 采用fork函数并发处理，用waitpid处理子进程的SIGCHLD信号
  */
 
 #include "../lib/unp.h"
 
-/**
- * 用wait函数处理信号SIGCHLD
- * @param sig_no
- */
-void waitChildProcess(int sig_no) {
+void waitpidChildProcess(int sig_no) {
     pid_t pid;
     int stat;
 
-    pid = wait(&stat);
-    printf("child %ld terminated\n", (long) pid);
+    // 指定 WNOHANG 选项，告知当有尚未终止当子进程在运行时不要阻塞
+    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0) {
+        printf("child %ld terminated\n", (long) pid);
+    }
     return;
 }
 
@@ -55,7 +53,7 @@ int main(int argc, char **argv) {
     wrapListen(listen_fd, LISTENQ);
 
     // 处理信号 SIGCHLD
-    wrapSignal(SIGCHLD, waitChildProcess);
+    wrapSignal(SIGCHLD, waitpidChildProcess);
 
     for (;;) {
         len = sizeof(cli_address);

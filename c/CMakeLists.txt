@@ -34,8 +34,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./unp/chapter05)
 add_executable(tcp_cli_01 unp/chapter05/tcp_cli_01.c)
 target_link_libraries(tcp_cli_01 unpLib)
 
+add_executable(tcp_cli_02 unp/chapter05/tcp_cli_02.c)
+target_link_libraries(tcp_cli_02 unpLib)
+
 add_executable(tcp_srv_01 unp/chapter05/tcp_srv_01.c)
 target_link_libraries(tcp_srv_01 unpLib)
 
 add_executable(tcp_srv_02 unp/chapter05/tcp_srv_02.c)
 target_link_libraries(tcp_srv_02 unpLib)
+
+add_executable(tcp_srv_03 unp/chapter05/tcp_srv_03.c)
+target_link_libraries(tcp_srv_03 unpLib)
