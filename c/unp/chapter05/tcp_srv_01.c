@@ -12,7 +12,6 @@ void strEcho(int sock_fd) {
     again:
     bzero(buf, MAX_SIZE);
     while ((n = read(sock_fd, buf, MAX_SIZE)) > 0) {
-        printf("receive from cli char count==%zd, content=%s\n", n, buf);
         wrapWriten(sock_fd, buf, n);
     }
     if (n < 0 && errno == EINTR) {
@@ -27,7 +26,6 @@ int main(int argc, char **argv) {
     int listen_fd, conn_fd;
     struct sockaddr_in serv_address, cli_address;
     socklen_t len;
-    char buff[MAX_SIZE];
     pid_t child_pid;
 
     listen_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
@@ -42,7 +40,7 @@ int main(int argc, char **argv) {
 
     // 将套接字转换成一个监听套接字，这样来自客户端的外来连接就可以在该套接字上由内核接受
     wrapListen(listen_fd, LISTENQ);
-    
+
     for (;;) {
         len = sizeof(cli_address);
         conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_address, &len);

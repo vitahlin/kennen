@@ -14,8 +14,7 @@ void waitChildProcess(int sig_no) {
     int stat;
 
     pid = wait(&stat);
-    printf("child %d terminated\n", &pid);
-    return;
+    printf("child %ld terminated\n", (long) pid);
 }
 
 void strEcho(int sock_fd) {
@@ -39,7 +38,6 @@ int main(int argc, char **argv) {
     int listen_fd, conn_fd;
     struct sockaddr_in serv_address, cli_address;
     socklen_t len;
-    char buff[MAX_SIZE];
     pid_t child_pid;
 
     listen_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
