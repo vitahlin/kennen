@@ -7,11 +7,11 @@
 
 void strEcho(int sock_fd) {
     ssize_t n;
-    char buf[10];
+    char buf[MAX_SIZE];
 
     again:
-    bzero(buf, 10);
-    while ((n = read(sock_fd, buf, 10)) > 0) {
+    bzero(buf, MAX_SIZE);
+    while ((n = read(sock_fd, buf, MAX_SIZE)) > 0) {
         printf("receive from cli char count==%zd, content=%s\n", n, buf);
         wrapWriten(sock_fd, buf, n);
     }
@@ -30,9 +30,6 @@ int main(int argc, char **argv) {
     char buff[MAX_SIZE];
     pid_t child_pid;
 
-    // 修正clion printf不打印的问题
-    setbuf(stdout, 0);
-
     listen_fd = wrapSocket(AF_INET, SOCK_STREAM, 0);
 
     bzero(&serv_address, sizeof(serv_address));
@@ -45,8 +42,7 @@ int main(int argc, char **argv) {
 
     // 将套接字转换成一个监听套接字，这样来自客户端的外来连接就可以在该套接字上由内核接受
     wrapListen(listen_fd, LISTENQ);
-
-    printf("server running...\n");
+    
     for (;;) {
         len = sizeof(cli_address);
         conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_address, &len);

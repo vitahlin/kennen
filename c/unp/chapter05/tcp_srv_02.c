@@ -5,23 +5,26 @@
 
 #include "../lib/unp.h"
 
+/**
+ * 用wait函数处理信号SIGCHLD
+ * @param sig_no
+ */
 void waitChildProcess(int sig_no) {
     pid_t pid;
     int stat;
 
     pid = wait(&stat);
-    printf(" child %d terminated\n", &pid);
+    printf("child %d terminated\n", &pid);
     return;
 }
 
 void strEcho(int sock_fd) {
     ssize_t n;
-    char buf[10];
+    char buf[MAX_SIZE];
 
     again:
-    bzero(buf, 10);
-    while ((n = read(sock_fd, buf, 10)) > 0) {
-        printf("receive from cli char count==%zd, content=%s\n", n, buf);
+    bzero(buf, MAX_SIZE);
+    while ((n = read(sock_fd, buf, MAX_SIZE)) > 0) {
         wrapWriten(sock_fd, buf, n);
     }
     if (n < 0 && errno == EINTR) {
@@ -54,8 +57,6 @@ int main(int argc, char **argv) {
 
     // 处理信号 SIGCHLD
     wrapSignal(SIGCHLD, waitChildProcess);
-
-    printf("server running...\n");
     for (;;) {
         len = sizeof(cli_address);
         conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_address, &len);
