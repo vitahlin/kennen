@@ -3,7 +3,12 @@
 void strCli(FILE *fp, int sock_fd) {
     char send_line[MAX_SIZE], receive_line[MAX_SIZE];
     while (wrapFgets(send_line, MAX_SIZE, fp) != NULL) {
-        wrapWriten(sock_fd, send_line, strlen(send_line));
+
+        // 这里是为了让第一次wrapWriten引发一个RST，再让第二个wrapWriten产生SIGPIPE信号
+        wrapWriten(sock_fd, send_line, 1);
+        sleep(1);
+        wrapWriten(sock_fd, send_line + 1, strlen(send_line) - 1);
+
         if (wrapReadlineV2(sock_fd, receive_line, MAX_SIZE) == 0) {
             printf("strCli: server terminated prematurely");
             exit(-1);
