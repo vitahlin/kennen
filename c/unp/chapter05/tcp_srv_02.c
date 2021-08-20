@@ -1,8 +1,7 @@
 /**
- * 返回时间的服务器程序
- * 采用fork函数并发处理，用wait函数处理子进程的SIGCHLD信号
+ * 回射程序服务端
+ * fork子进程处理客户端连接，并用wait函数处理信号SIGCHLD
  */
-
 #include "../lib/unp.h"
 
 /**
@@ -15,7 +14,6 @@ void waitChildProcess(int sig_no) {
 
     pid = wait(&stat);
     printf("child %ld terminated\n", (long) pid);
-    return;
 }
 
 void strEcho(int sock_fd) {

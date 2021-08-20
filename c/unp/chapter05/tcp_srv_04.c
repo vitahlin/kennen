@@ -1,22 +1,37 @@
 /**
- * 回射程序的服务端
- * fork子进程处理客户端连接
+ * 计算两个数和的服务端程序
+ * 客户端输入的两个数用空格隔开
  */
 #include "../lib/unp.h"
 
-void strEcho(int sock_fd) {
-    ssize_t n;
-    char buf[MAX_SIZE];
+void waitpidChildProcess(int sig_no) {
+    pid_t pid;
+    int stat;
 
-    again:
-    bzero(buf, MAX_SIZE);
-    while ((n = read(sock_fd, buf, MAX_SIZE)) > 0) {
-        wrapWriten(sock_fd, buf, n);
+    // 指定 WNOHANG 选项，告知当有尚未终止当子进程在运行时不要阻塞
+    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0) {
+        printf("child %ld terminated\n", (long) pid);
     }
-    if (n < 0 && errno == EINTR) {
-        goto again;
-    } else if (n < 0) {
-        perror("read error");
+    return;
+}
+
+void calculateSum(int sock_fd) {
+    ssize_t n;
+    char receive_line[MAX_SIZE];
+    long arg1, arg2;
+
+    for (;;) {
+        if ((n = wrapReadlineV2(sock_fd, receive_line, MAX_SIZE)) == 0) {
+            return;
+        }
+
+        if (sscanf(receive_line, "%ld%ld", &arg1, &arg2) == 2) {
+            snprintf(receive_line, sizeof(receive_line), "%ld\n", arg1 + arg2);
+        } else {
+            snprintf(receive_line, sizeof(receive_line), "Input error\n");
+        }
+        n = strlen(receive_line);
+        wrapWriten(sock_fd, receive_line, n);
     }
 }
 
@@ -40,6 +55,9 @@ int main(int argc, char **argv) {
     // 将套接字转换成一个监听套接字，这样来自客户端的外来连接就可以在该套接字上由内核接受
     wrapListen(listen_fd, LISTENQ);
 
+    // 处理信号 SIGCHLD
+    wrapSignal(SIGCHLD, waitpidChildProcess);
+
     for (;;) {
         len = sizeof(cli_address);
         conn_fd = wrapAccept(listen_fd, (struct sockaddr *) &cli_address, &len);
@@ -52,7 +70,7 @@ int main(int argc, char **argv) {
             // 子进程处理客户端连接逻辑
             wrapClose(listen_fd);
 
-            strEcho(conn_fd);
+            calculateSum(conn_fd);
             exit(0);
         }
         wrapClose(conn_fd);

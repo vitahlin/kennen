@@ -48,3 +48,6 @@ target_link_libraries(tcp_srv_02 unpLib)
 
 add_executable(tcp_srv_03 unp/chapter05/tcp_srv_03.c)
 target_link_libraries(tcp_srv_03 unpLib)
+
+add_executable(tcp_srv_04 unp/chapter05/tcp_srv_04.c)
+target_link_libraries(tcp_srv_04 unpLib)

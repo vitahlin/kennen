@@ -1,7 +1,3 @@
-/**
- * 简单从时间服务器获取时间的tcp客户端程序
- */
-
 #include "../lib/unp.h"
 
 void strCli(FILE *fp, int sock_fd) {

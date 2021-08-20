@@ -1,3 +1,6 @@
+/**
+ * 单个客户端连接的回射程序客户端
+ */
 #include "../lib/unp.h"
 
 void strCli(FILE *fp, int sock_fd) {
