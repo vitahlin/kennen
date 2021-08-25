@@ -10,6 +10,8 @@ target/
 # clion
 .idea/
 
+.DS_Store
+
 # cmake
 cmake-build-debug/
 CMakeCache.txt
