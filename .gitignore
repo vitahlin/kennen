@@ -19,3 +19,7 @@ Testing/
 
 *.cbp
 *.out/
+
+# idea
+.idea/
+*.iml
