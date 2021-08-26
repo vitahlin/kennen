@@ -1,10 +1,16 @@
 package vitah;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * @author vitah
  */
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("Hello world");
+        HashMap hashMap = new HashMap();
+        hashMap.put("a", "a");
+        System.out.println(hashMap.size());
     }
 }
